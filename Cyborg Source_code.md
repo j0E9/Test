@@ -1,5 +1,3 @@
-"# Cyborg" 
-"# Cyborg" 
 import speech_recognition as sr
 import pyttsx3
 import re
@@ -171,6 +169,7 @@ def festival_anchor():
     use_gtts = False
 
     while True:
+
         keyboard.hook(speak_on_key_press)
         user_query = listen()
         print("User: " + user_query)
@@ -181,11 +180,11 @@ def festival_anchor():
             switch_to_gtts()
 
         if speaking_language == 'en':
-            syn= wordnet.synsets(user_query)
-            if  syn:
-                x = syn.definition()
+            syn = wordnet.synsets(user_query) # want to fix this line to trigger when the user says definition of "Word"
+            if syn:
+                x = syn[0].definition()
                 print(x)
-                speak_pyttsx3(x, speaking_language)
+                speak_pyttsx3(x,'en')
             elif "name" in user_query.lower():
                 speak_pyttsx3("cyborg", speaking_language)
             elif "introduce" in user_query.lower() and "yourself" in user_query.lower():
@@ -204,12 +203,11 @@ def festival_anchor():
                 break  # Exit the program
 
         elif speaking_language == 'ml':
-            syn= wordnet.synsets(user_query)
+            syn = wordnet.synsets(user_query)
             if syn:
-                 x = syn.definition()
-                 print(x)
-                 speak_gttts(x, speaking_language)
-
+                x = syn[0].definition()
+                print(x)
+                speak_gttts(x,'ml')
             elif "name" in user_query.lower():
                 speak_gttts("cyborg", speaking_language)
             elif "introduce" in user_query.lower() and "yourself" in user_query.lower():
